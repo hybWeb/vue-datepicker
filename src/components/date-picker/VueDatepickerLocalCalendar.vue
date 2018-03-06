@@ -19,26 +19,26 @@
   </div>
   <div :class="`${pre}-body`">
     <div :class="`${pre}-days`">
-      <a  :class="`${pre}-week`" v-for="(i) in local.weeks">{{i}}</a>
-      <a v-for="j in days" @click="is($event)&&(day=j.i,ok(j))" :class="[(j.p||j.n)?`${pre}-date-out`:'',status(j.y,j.m,j.i,hour,minute,second,'YYYYMMDD')]">{{j.i}}</a>
+      <a  :class="`${pre}-week`" v-for="(i,key) in local.weeks" v-bind:key="key">{{i}}</a>
+      <a v-for="j in days" v-bind:key="j.id" @click="is($event)&&(day=j.i,ok(j))" :class="[(j.p||j.n)?`${pre}-date-out`:'',status(j.y,j.m,j.i,hour,minute,second,'YYYYMMDD')]">{{j.i}}</a>
     </div>
     <div :class="`${pre}-months`" v-show="showMonths">
-      <a v-for="(i,j) in local.months" @click="is($event)&&(showMonths=(m==='M'),month=j,(m==='M'&&ok()))" :class="[status(year,j,day,hour,minute,second,'YYYYMM')]">{{i}}</a>
+      <a v-for="(i,j) in local.months" v-bind:key="j" @click="is($event)&&(showMonths=(m==='M'),month=j,(m==='M'&&ok()))" :class="[status(year,j,day,hour,minute,second,'YYYYMM')]">{{i}}</a>
     </div>
     <div :class="`${pre}-years`" v-show="showYears">
-      <a v-for="(i,j) in years" @click="is($event)&&(showYears=(m==='Y'),year=i,(m==='Y'&&ok()))" :class="[(j===0||j===11)?`${pre}-date-out`:'',status(i,month,day,hour,minute,second,'YYYY')]">{{i}}</a>
+      <a v-for="(i,j) in years" v-bind:key="j" @click="is($event)&&(showYears=(m==='Y'),year=i,(m==='Y'&&ok()))" :class="[(j===0||j===11)?`${pre}-date-out`:'',status(i,month,day,hour,minute,second,'YYYY')]">{{i}}</a>
     </div>
     <div :class="`${pre}-hours`" v-show="showHours">
       <div :class="`${pre}-title`">{{local.hourTip}}</div>
-      <a v-for="(j,i) in 24" @click="is($event)&&(showHours=false,hour=i,ok('h'))" :class="[status(year,month,day,i,minute,second,'YYYYMMDDHH')]">{{i}}</a>
+      <a v-for="(j,i) in 24" v-bind:key="j" @click="is($event)&&(showHours=false,hour=i,ok('h'))" :class="[status(year,month,day,i,minute,second,'YYYYMMDDHH')]">{{i}}</a>
     </div>
     <div :class="`${pre}-minutes`" v-show="showMinutes">
       <div :class="`${pre}-title`">{{local.minuteTip}}</div>
-      <a v-for="(j,i) in 60" @click="is($event)&&(showMinutes=false,minute=i,ok('h'))" :class="[status(year,month,day,hour,i,second,'YYYYMMDDHHmm')]">{{i}}</a>
+      <a v-for="(j,i) in 60" v-bind:key="j" @click="is($event)&&(showMinutes=false,minute=i,ok('h'))" :class="[status(year,month,day,hour,i,second,'YYYYMMDDHHmm')]">{{i}}</a>
     </div>
     <div :class="`${pre}-seconds`" v-show="showSeconds">
       <div :class="`${pre}-title`">{{local.secondTip}}</div>
-      <a v-for="(j,i) in 60" @click="is($event)&&(showSeconds=false,second=i,ok('h'))" :class="[status(year,month,day,hour,minute,i,'YYYYMMDDHHmmss')]">{{i}}</a>
+      <a v-for="(j,i) in 60"  v-bind:key="j" @click="is($event)&&(showSeconds=false,second=i,ok('h'))" :class="[status(year,month,day,hour,minute,i,'YYYYMMDDHHmmss')]">{{i}}</a>
     </div>
   </div>
   <div :class="`${pre}-foot`" v-if="m==='H'">
